@@ -11,8 +11,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: build
       run: gcc main.c -o piEncrypt
-    - uses: actions/upload-artifacts
-      name: artifact thing
-    with:
-      name: profram
-      path: piEncrypt
+    - uses: actions/upload-artifact@v4
+      with:
+          name: mhm
+          path: piEncrypt
