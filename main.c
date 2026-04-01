@@ -2,8 +2,15 @@
 #include <math.h>
 #include <stdlib.h>
 
-long double pi = 3.14159265358979;
+#define PI_LENGTH 15
 
-int main(){
+long double pi = 3.14159265358979;
+char StrungPi[15];
+
+void arrayifyPi() {
+  
+}
+
+int main(int argc, char *argv[]){
   
 }
