@@ -6,12 +6,18 @@
 #define PI_LENGTH 15
 
 int StrungPi[PI_LENGTH];
+int InputNums[3];
 
 void arrayifyPi() {
     const char *piTemp = PI_STR;
     for (int i = 0; i < PI_LENGTH; i++) {
         StrungPi[i] = piTemp[i] - '0';
     }
+}
+void arrayifyArgs(int argc, char *argv[]) {
+  for (int i = 0; i < argc-2; i++) {
+    
+  }
 }
 
 int main(int argc, char *argv[]) {
