@@ -17,7 +17,7 @@ void arrayifyPi() {
 }
 void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-3; i++) {
-    InputNums[i] = argv[i+1];
+    InputNums[i] = atoi(argv[i+1]);
   }
 }
 
@@ -27,8 +27,8 @@ int main(int argc, char *argv[]) {
     printf("By UnknownKE/The KE\n");
     printf("Made for Instructables spring 2026 All Things Pi contest\n\n");
     if (argc == 1) {
-      printf("Usage: int int int fileToEncrypt outputFileName\n")
-      printf("make sure the 3 ints are far apart, abide by the 32 bit int limit, and are hard to guess as they are used for encryption.\n")
+      printf("Usage: int int int fileToEncrypt outputFileName\n");
+      printf("make sure the 3 ints are far apart, abide by the 32 bit int limit, and are hard to guess as they are used for encryption.\n");
       return 0;
     }
     printf("Doing unimportant stuff you prob dont care about...\n");
