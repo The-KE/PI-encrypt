@@ -10,8 +10,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: build
-      run: gcc main.c -o piEncrypt
+      run: gcc -m32 main.c -o piEncrypt
+    - name: test executuable
+      run: piEncrypt
     - uses: actions/upload-artifact@v4
       with:
-          name: mhm
+          name: piEncrypt
           path: piEncrypt
