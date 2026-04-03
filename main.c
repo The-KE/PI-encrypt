@@ -20,7 +20,7 @@ void arrayifyPi() {
 unsigned char ReadFileAndKeyStuff(char fring[]) {
     FILE *EncryptionVictim = fopen(fring, "rb");
     fseek(EncryptionVictim, 0, SEEK_END);
-    long fize = ftell(EncyptionVictim);
+    long fize = ftell(EncryptionVictim);
     rewind(EncryptionVictim);
     unsigned char *fuf = malloc(fize+1);
     fread(fuf, 1, fize, EncryptionVictim);
