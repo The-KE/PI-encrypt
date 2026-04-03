@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define PI_STR "314159265358979"
 #define PI_LENGTH 15
@@ -19,6 +20,8 @@ void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-3; i++) {
     InputNums[i] = atoi(argv[i+1]);
   }
+  strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
+  inputFSname[sizeof(inputFSname)-1] = '\0';
 }
 
 int main(int argc, char *argv[]) {
@@ -35,5 +38,7 @@ int main(int argc, char *argv[]) {
     arrayifyPi();
     printf("Remember to NOT use 0 as an input integer as it will make predictable encryted things...\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
+    arrayifyArgs(argc, argv);
+    printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
     return 0;
 }
