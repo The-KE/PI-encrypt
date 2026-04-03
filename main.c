@@ -9,12 +9,22 @@
 int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
+char RandKey[32];
 
 void arrayifyPi() {
     const char *piTemp = PI_STR;
     for (int i = 0; i < PI_LENGTH; i++) {
         StrungPi[i] = piTemp[i] - '0';
     }
+}
+unsigned char ReadFileAndKeyStuff(char fring[]) {
+    FILE *EncryptionVictim = fopen(fring, "rb");
+    fseek(EncryptionVictim, 0, SEEK_END);
+    long fize = ftell(EncyptionVictim);
+    rewind(EncryptionVictim);
+    unsigned char *fuf = malloc(fize+1);
+    fread(fuf, 1, fize, EncryptionVictim);
+    fclose(EncryptionVictim);
 }
 void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-3; i++) {
@@ -40,5 +50,6 @@ int main(int argc, char *argv[]) {
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
     arrayifyArgs(argc, argv);
     printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
+    printf("reading file...");
     return 0;
 }
