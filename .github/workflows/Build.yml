@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: install 32bit stuff
+      run: sudo apt-get update && sudo apt-get install -y gcc-multilib
     - name: build
       run: gcc -m32 main.c -o piEncrypt
     - name: test executuable
