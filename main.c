@@ -37,7 +37,12 @@ void arrayifyArgs(int argc, char *argv[]) {
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
   inputFSname[sizeof(inputFSname)-1] = '\0';
 }
-
+void printKey(const char *str) {
+    for (int i = 0; str[i] != '\0'; i++) {
+        printf("%02x", (unsigned char)str[i]);
+    }
+    printf("\n")
+}
 void EnCrYpT(char *buf[512]) {
     char sectMat[4][4];
 }
@@ -60,6 +65,8 @@ int main(int argc, char *argv[]) {
     printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
     printf("reading file...\n");
     ReadFileAndKeyStuff(inputFSname);
-    printf("Your're key is %32x. Make sure to save it and your three input integers!", (unsigned char)RandKey);
+    printf("Your're key is ");
+    printKey(RandKey);
+    printf("Make sure to save it and your three input integers!\n");
     return 0;
 }
