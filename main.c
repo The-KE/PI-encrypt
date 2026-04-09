@@ -41,7 +41,7 @@ void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
         printf("%02x", (unsigned char)str[i]);
     }
-    printf("\n")
+    printf("\n");
 }
 void EnCrYpT(char *buf[512]) {
     char sectMat[4][4];
