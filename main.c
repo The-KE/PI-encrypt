@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
     arrayifyArgs(argc, argv);
     printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
-    printf("reading file..."\n);
+    printf("reading file...\n");
     ReadFileAndKeyStuff(inputFSname);
-    printf("Your're key is %64x. Make sure to save it and your three input integers!", (unsigned char)RandKey);
+    printf("Your're key is %32x. Make sure to save it and your three input integers!", (unsigned char)RandKey);
     return 0;
 }
