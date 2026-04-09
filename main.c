@@ -31,7 +31,7 @@ unsigned char ReadFileAndKeyStuff(char fring[]) {
     return fuf;
 }
 void arrayifyArgs(int argc, char *argv[]) {
-  for (int i = 0; i < argc-3; i++) {
+  for (int i = 0; i < argc-2; i++) {
     InputNums[i] = atoi(argv[i+1]);
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
