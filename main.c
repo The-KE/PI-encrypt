@@ -9,7 +9,7 @@
 int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
-char RandKey[32];
+char RandKey[16];
 
 void arrayifyPi() {
     const char *piTemp = PI_STR;
@@ -32,7 +32,7 @@ unsigned char ReadFileAndKeyStuff(char fring[]) {
 }
 void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-2; i++) {
-    InputNums[i] = atoi(argv[i+1]);
+    InputNums[i] = atoi(argv[i]);
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
   inputFSname[sizeof(inputFSname)-1] = '\0';
