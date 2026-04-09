@@ -60,6 +60,6 @@ int main(int argc, char *argv[]) {
     printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
     printf("reading file...");
     ReadFileAndKeyStuff(inputFSname);
-    printf("Your're key is %s. Make sure to save it and your three input integers!", RandKey);
+    printf("Your're key is %02x. Make sure to save it and your three input integers!", (unsigned char)RandKey);
     return 0;
 }
