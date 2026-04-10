@@ -44,7 +44,7 @@ void printKey(const char *str) {
     }
     printf("\n");
 }
-void EnCrYpT(char *buf[512]) {
+void EnCrYpT(char *buf[]) {
     char sectMat[4][4];
 }
 
