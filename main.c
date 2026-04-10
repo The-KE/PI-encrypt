@@ -10,7 +10,6 @@ int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
 char RandKey[16];
-unsigned char *fileData[];
 
 void arrayifyPi() {
     const char *piTemp = PI_STR;
@@ -23,7 +22,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     fseek(EncryptionVictim, 0, SEEK_END);
     long fize = ftell(EncryptionVictim);
     rewind(EncryptionVictim);
-    unsigned char *fuf = malloc(fize+1);
+    unsigned char *fuf[fize+1] = malloc(fize+1);
     fread(fuf, 1, fize, EncryptionVictim);
     fclose(EncryptionVictim);
     FILE *urand = fopen("/dev/urandom", "r");
@@ -65,7 +64,7 @@ int main(int argc, char *argv[]) {
     arrayifyArgs(argc, argv);
     printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
     printf("reading file...\n");
-    fileData = ReadFileAndKeyStuff(inputFSname);
+    unsigned char *fileData[] = ReadFileAndKeyStuff(inputFSname);
     printf("Your're key is ");
     printKey(RandKey);
     printf("Make sure to save it and your three input integers!\n");
