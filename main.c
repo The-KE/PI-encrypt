@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PI_STR "314159265358979"
-#define PI_LENGTH 15
+#define PI_STR "3141592653589793"
+#define PI_LENGTH 16
 
 int StrungPi[PI_LENGTH];
 int InputNums[3];
