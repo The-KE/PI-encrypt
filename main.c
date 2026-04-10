@@ -10,6 +10,7 @@ int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
 char RandKey[16];
+unsigned char fileData[];
 
 void arrayifyPi() {
     const char *piTemp = PI_STR;
@@ -64,7 +65,7 @@ int main(int argc, char *argv[]) {
     arrayifyArgs(argc, argv);
     printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
     printf("reading file...\n");
-    ReadFileAndKeyStuff(inputFSname);
+    fileData[] = ReadFileAndKeyStuff(inputFSname);
     printf("Your're key is ");
     printKey(RandKey);
     printf("Make sure to save it and your three input integers!\n");
