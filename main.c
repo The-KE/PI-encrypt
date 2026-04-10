@@ -22,7 +22,7 @@ unsigned char **ReadFileAndKeyStuff(char fring[]) {
     fseek(EncryptionVictim, 0, SEEK_END);
     long fize = ftell(EncryptionVictim);
     rewind(EncryptionVictim);
-    unsigned char *fuf[] = malloc(fize+1);
+    unsigned char *fuf[] = calloc(fize+1);
     fread(fuf, 1, fize, EncryptionVictim);
     fclose(EncryptionVictim);
     FILE *urand = fopen("/dev/urandom", "r");
