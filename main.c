@@ -10,6 +10,7 @@ int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
 char RandKey[16];
+size_t fileSize;
 
 void arrayifyPi() {
     const char *piTemp = PI_STR;
@@ -21,8 +22,9 @@ unsigned char **ReadFileAndKeyStuff(char fring[]) {
     FILE *EncryptionVictim = fopen(fring, "rb");
     fseek(EncryptionVictim, 0, SEEK_END);
     long fize = ftell(EncryptionVictim);
+    fileSize = fize;
     rewind(EncryptionVictim);
-    unsigned char *fuf[] = calloc(fize+1, 1);
+    unsigned char *fuf = malloc(fize+1);
     fread(fuf, 1, fize, EncryptionVictim);
     fclose(EncryptionVictim);
     FILE *urand = fopen("/dev/urandom", "r");
