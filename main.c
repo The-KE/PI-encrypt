@@ -64,9 +64,9 @@ int main(int argc, char *argv[]) {
     printf("Remember to NOT use 0 as an input integer as it will make predictable encryted things...\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
     arrayifyArgs(argc, argv);
-    printf("Input ints: %d, %d, %d\n", InputNums[1], InputNums[2], InputNums[3]);
+    printf("Input ints: %d, %d, %d\n\n", InputNums[1], InputNums[2], InputNums[3]);
     printf("reading file...\n");
-    unsigned char **fileData = ReadFileAndKeyStuff(inputFSname);
+    unsigned char *fileData = ReadFileAndKeyStuff(inputFSname);
     printf("Your're key is ");
     printKey(RandKey);
     printf("Make sure to save it and your three input integers!\n");
