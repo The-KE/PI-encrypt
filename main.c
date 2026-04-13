@@ -2,6 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #define PI_STR "3141592653589793"
 #define PI_LENGTH 16
@@ -19,6 +22,7 @@ void arrayifyPi() {
     }
 }
 unsigned char **ReadFileAndKeyStuff(char fring[]) {
+    
     FILE *EncryptionVictim = fopen(fring, "rb");
     fseek(EncryptionVictim, 0, SEEK_END);
     long fize = ftell(EncryptionVictim);
@@ -47,6 +51,8 @@ void printKey(const char *str) {
 }
 void EnCrYpT(unsigned char *buf[]) {
     char sectMat[4][4];
+    int chunk16remainder = fileSize % 16;
+    
 }
 
 int main(int argc, char *argv[]) {
