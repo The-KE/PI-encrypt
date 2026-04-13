@@ -45,7 +45,7 @@ void printKey(const char *str) {
     }
     printf("\n");
 }
-void EnCrYpT(char *buf[]) {
+void EnCrYpT(unsigned char *buf[]) {
     char sectMat[4][4];
 }
 
@@ -69,6 +69,8 @@ int main(int argc, char *argv[]) {
     unsigned char *fileData = ReadFileAndKeyStuff(inputFSname);
     printf("Your're key is ");
     printKey(RandKey);
-    printf("Make sure to save it and your three input integers!\n");
+    printf("Make sure to save it and your three input integers!\n\n");
+    printf("Beginning encryption...\n");
+    EnCrYpT(fileData);
     return 0;
 }
