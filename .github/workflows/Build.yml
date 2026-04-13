@@ -14,8 +14,10 @@ jobs:
     - name: build
       run: gcc -m32 main.c -o piEncrypt
     - name: test executuable
-      run: ./piEncrypt 48 5348 946824 PartialHamlet.txt encryptedFile.txt
+      run: ./piEncrypt 48 5348 946824 PartialHamlet.txt H4M13T.txt
     - uses: actions/upload-artifact@v4
       with:
           name: piEncrypt
-          path: piEncrypt
+          path: |
+          piEncrypt
+          H4M13T.txt
