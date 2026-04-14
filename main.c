@@ -21,20 +21,30 @@ void arrayifyPi() {
         StrungPi[i] = piTemp[i] - '0';
     }
 }
-unsigned char **ReadFileAndKeyStuff(char fring[]) {
-    
-    FILE *EncryptionVictim = fopen(fring, "rb");
-    fseek(EncryptionVictim, 0, SEEK_END);
-    long fize = ftell(EncryptionVictim);
-    fileSize = fize;
-    rewind(EncryptionVictim);
-    unsigned char *fuf = malloc(fize+1);
-    fread(fuf, 1, fize, EncryptionVictim);
-    fclose(EncryptionVictim);
-    FILE *urand = fopen("/dev/urandom", "r");
-    fread(&RandKey, 1, sizeof(RandKey), urand);
-    fclose(urand);
-    return fuf;
+unsigned char *ReadFileAndKeyStuff(char fring[]) {
+    int desc = open(inputFSname, O_RDONLY);
+    struct stat bytes;
+    fstat(desc, &bytes);
+    if (bytes.st_size < 32000000) {
+        printf("SMALL FILE YEAAHHHHH\n");
+        FILE *EncryptionVictim = fopen(fring, "rb");
+        fseek(EncryptionVictim, 0, SEEK_END);
+        long fize = ftell(EncryptionVictim);
+        fileSize = fize;
+        rewind(EncryptionVictim);
+        unsigned char *fuf = malloc(fize+1);
+        fread(fuf, 1, fize, EncryptionVictim);
+        fclose(EncryptionVictim);
+        FILE *urand = fopen("/dev/urandom", "r");
+        fread(&RandKey, 1, sizeof(RandKey), urand);
+        fclose(urand);
+        return fuf;
+    }
+    unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
+    printf("BIG FILE YEAAHHHHHHH\n");
+    if (fuf == "MAP_FAILED") {
+        printf("Memory Map failed. Either my mediocre coding or a invalid file :/\n");
+    }
 }
 void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-2; i++) {
