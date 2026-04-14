@@ -26,7 +26,6 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
-        printf("SMALL FILE YEAAHHHHH\n");
         FILE *EncryptionVictim = fopen(fring, "rb");
         fseek(EncryptionVictim, 0, SEEK_END);
         long fize = ftell(EncryptionVictim);
@@ -41,10 +40,14 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
-    printf("BIG FILE YEAAHHHHHHH\n");
     if (fuf == "MAP_FAILED") {
         printf("Memory Map failed. Either my mediocre coding or a invalid file :/\n");
     }
+    FILE *urand = fopen("/dev/urandom", "r");
+    fread(&RandKey, 1, sizeof(RandKey), urand);
+    fclose(urand);
+    fileSize = bytes.st_size;
+    return fuf;
 }
 void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-2; i++) {
@@ -61,8 +64,10 @@ void printKey(const char *str) {
 }
 void EnCrYpT(unsigned char *buf[]) {
     char sectMat[4][4];
-    int chunk16remainder = fileSize % 16;
-    
+    div_t chunk16remainder = div(fileSize, 16);
+    for (int i = 0; i < chunk16remainder.quot; i++) {
+
+    }
 }
 
 int main(int argc, char *argv[]) {
