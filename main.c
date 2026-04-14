@@ -66,7 +66,10 @@ void EnCrYpT(unsigned char *buf[]) {
     char sectMat[4][4];
     div_t chunk16remainder = div(fileSize, 16);
     for (int i = 0; i < chunk16remainder.quot; i++) {
-
+        for (int j = 0; j < 16; j++) {
+            div_t tempGridPos = div(3, j);
+            
+        }
     }
 }
 
