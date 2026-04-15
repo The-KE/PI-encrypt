@@ -40,7 +40,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
-    if (fuf == "MAP_FAILED") {
+    if (fuf == MAP_FAILED) {
         printf("Memory Map failed. Either my mediocre coding or a invalid file :/\n");
     }
     FILE *urand = fopen("/dev/urandom", "r");
@@ -51,7 +51,11 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
 }
 void arrayifyArgs(int argc, char *argv[]) {
   for (int i = 0; i < argc-2; i++) {
-    InputNums[i] = atoi(argv[i]);
+    InputNums[i] = atoi(argv[i+1]);
+    if (InputNums[i] = 0) {
+        printf("Invalid Ints: either used zero or inputted non integer for int fields");
+        exit(0)
+    }
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
   inputFSname[sizeof(inputFSname)-1] = '\0';
@@ -62,13 +66,13 @@ void printKey(const char *str) {
     }
     printf("\n");
 }
-void EnCrYpT(unsigned char *buf[]) {
+void EnCrYpT(unsigned char *buf) {
     char sectMat[4][4];
     div_t chunk16remainder = div(fileSize, 16);
     for (int i = 0; i < chunk16remainder.quot; i++) {
-        for (int j = 0; j < 16; j++) {
-            div_t tempGridPos = div(3, j);
-            
+        for (int j = 1; j < 17; j++) {
+            div_t tempGridPos = div(4, j);
+            int charascii = buf[(i*16)+j-1]
         }
     }
 }
@@ -88,7 +92,7 @@ int main(int argc, char *argv[]) {
     printf("Remember to NOT use 0 as an input integer as it will make predictable encryted things...\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
     arrayifyArgs(argc, argv);
-    printf("Input ints: %d, %d, %d\n\n", InputNums[1], InputNums[2], InputNums[3]);
+    printf("Input ints: %d, %d, %d\n\n", InputNums[0], InputNums[1], InputNums[2]);
     printf("reading file...\n");
     unsigned char *fileData = ReadFileAndKeyStuff(inputFSname);
     printf("Your're key is ");
