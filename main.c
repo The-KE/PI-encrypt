@@ -5,6 +5,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 #define PI_STR "3141592653589793"
 #define PI_LENGTH 16
@@ -58,7 +59,7 @@ void arrayifyArgs(int argc, char *argv[]) {
     InputNums[i] = atoi(argv[i+1]);
     if (InputNums[i] = 0) {
         printf("Invalid Ints: either used zero or inputted non integer for int fields");
-        exit(0)
+        exit(0);
     }
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
@@ -105,6 +106,6 @@ int main(int argc, char *argv[]) {
     printf("Make sure to save it and your three input integers!\n\n");
     printf("Beginning encryption...\n");
     EnCrYpT(fileData);
-    c
+    munmap(fileData, fileSize);
     return 0;
 }
