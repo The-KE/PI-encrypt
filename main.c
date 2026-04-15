@@ -55,10 +55,10 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     return fuf;
 }
 void arrayifyArgs(int argc, char *argv[]) {
-  for (int i = 0; i < argc-2; i++) {
+  for (int i = 0; i < argc-3; i++) {
     InputNums[i] = atoi(argv[i+1]);
     if (InputNums[i] == 0) {
-        printf("Invalid Ints: either used zero or inputted non integer for int fields. Int %d sas invalid.\n", i+1);
+        printf("Invalid Ints: either used zero or inputted non integer for int fields. Int %d was invalid.\n", i+1);
         exit(0);
     }
   }
