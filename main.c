@@ -41,8 +41,12 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
     if (fuf == MAP_FAILED) {
-        printf("Memory Map failed. Either my mediocre coding or a invalid file :/\n");
+        printf("Memory Map failed. Either my mediocre coding or an invalid file :/\n");
+        munmap(fuf, bytes.st_size);
+        close(desc);
+        exit(0);
     }
+    madvise(fuf, bytes.st_size, MADV_SEQUENTIAL);
     FILE *urand = fopen("/dev/urandom", "r");
     fread(&RandKey, 1, sizeof(RandKey), urand);
     fclose(urand);
@@ -72,7 +76,8 @@ void EnCrYpT(unsigned char *buf) {
     for (int i = 0; i < chunk16remainder.quot; i++) {
         for (int j = 1; j < 17; j++) {
             div_t tempGridPos = div(4, j);
-            int charascii = buf[(i*16)+j-1]
+            int charascii = buf[(i*16)+j-1];
+            
         }
     }
 }
@@ -100,5 +105,6 @@ int main(int argc, char *argv[]) {
     printf("Make sure to save it and your three input integers!\n\n");
     printf("Beginning encryption...\n");
     EnCrYpT(fileData);
+    c
     return 0;
 }
