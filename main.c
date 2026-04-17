@@ -73,23 +73,23 @@ void printKey(const char *str) {
     }
     printf("\n");
 }
-void rotaterow(char matrix[ROWS][COLS], int row, int n) {
-    n = n % COLS;
+void rotaterow(char matrix[4][4], int row, int n) {
+    n = n % 4;
     if (n == 0) return;
-    char temp[COLS];
-    memcpy(temp, matrix[row], COLS);
-    for (int j = 0; j < COLS; j++)
-        matrix[row][(j + n) % COLS] = temp[j];
+    char temp[4];
+    memcpy(temp, matrix[row], 4);
+    for (int j = 0; j < 4; j++)
+        matrix[row][(j + n) % 4] = temp[j];
 }
 
-void rotatecol(char matrix[ROWS][COLS], int col, int n) {
-    n = n % ROWS;
+void rotatecol(char matrix[4][4], int col, int n) {
+    n = n % 4;
     if (n == 0) return;
 
-    char temp[ROWS];
-    for (int i = 0; i < ROWS; i++) temp[i] = matrix[i][col];
-    for (int i = 0; i < ROWS; i++)
-        matrix[(i - n + ROWS) % ROWS][col] = temp[i];
+    char temp[4];
+    for (int i = 0; i < 4; i++) temp[i] = matrix[i][col];
+    for (int i = 0; i < 4; i++)
+        matrix[(i - n + 4) % 4][col] = temp[i];
 }
 void EnCrYpT(unsigned char *buf) {
     unsigned char sectMat[4][4];
