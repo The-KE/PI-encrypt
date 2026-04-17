@@ -73,6 +73,24 @@ void printKey(const char *str) {
     }
     printf("\n");
 }
+void rotaterow(char matrix[ROWS][COLS], int row, int n) {
+    n = n % COLS;
+    if (n == 0) return;
+    char temp[COLS];
+    memcpy(temp, matrix[row], COLS);
+    for (int j = 0; j < COLS; j++)
+        matrix[row][(j + n) % COLS] = temp[j];
+}
+
+void rotatecol(char matrix[ROWS][COLS], int col, int n) {
+    n = n % ROWS;
+    if (n == 0) return;
+
+    char temp[ROWS];
+    for (int i = 0; i < ROWS; i++) temp[i] = matrix[i][col];
+    for (int i = 0; i < ROWS; i++)
+        matrix[(i - n + ROWS) % ROWS][col] = temp[i];
+}
 void EnCrYpT(unsigned char *buf) {
     unsigned char sectMat[4][4];
     div_t chunk16remainder = div(fileSize, 16);
@@ -86,6 +104,7 @@ void EnCrYpT(unsigned char *buf) {
             int xored = piDigit ^ charascii;
             sectMat[tempGridPos.rem-1][tempGridPos.quot-1] = (unsigned char)xored;
         }
+        
     }
 }
 
