@@ -81,7 +81,7 @@ void EnCrYpT(unsigned char *buf) {
             div_t tempGridPos = div(4, j);
             int charascii = buf[(i*16)+j-1];
             int randAscii = RandKey[j-1];
-            int piDigit = StrungPi[(charascii*randAscii)%15];
+            int piDigit = StrungPi[randAscii+(i*j)%15];
             int xored = piDigit ^ charascii;
         }
     }
