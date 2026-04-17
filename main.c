@@ -74,15 +74,17 @@ void printKey(const char *str) {
     printf("\n");
 }
 void EnCrYpT(unsigned char *buf) {
-    char sectMat[4][4];
+    unsigned char sectMat[4][4];
     div_t chunk16remainder = div(fileSize, 16);
     for (int i = 0; i < chunk16remainder.quot; i++) {
+        memset(sectMat, 0, sizeof(sectMat));
         for (int j = 1; j < 17; j++) {
             div_t tempGridPos = div(4, j);
             int charascii = buf[(i*16)+j-1];
             int randAscii = RandKey[j-1];
             int piDigit = StrungPi[randAscii+(i*j)%15];
             int xored = piDigit ^ charascii;
+            sectMat[tempGridPos.rem-1][tempGridPos.quot-1] = (unsigned char)xored;
         }
     }
 }
