@@ -1,4 +1,4 @@
-name: Build Unix program
+name: Build Linux program
 
 on:
   push:
