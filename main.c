@@ -48,6 +48,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
         close(desc);
         exit(0);
     }
+    close(desc);
     madvise(fuf, bytes.st_size, MADV_SEQUENTIAL);
     FILE *urand = fopen("/dev/urandom", "r");
     fread(&RandKey, 1, sizeof(RandKey), urand);
@@ -79,7 +80,9 @@ void EnCrYpT(unsigned char *buf) {
         for (int j = 1; j < 17; j++) {
             div_t tempGridPos = div(4, j);
             int charascii = buf[(i*16)+j-1];
-            
+            int randAscii = RandKey[j-1];
+            int piDigit = [(charascii*randAscii)%15];
+            int xored = piDigit ^ charascii;
         }
     }
 }
