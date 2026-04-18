@@ -104,7 +104,10 @@ void EnCrYpT(unsigned char *buf) {
             int xored = piDigit ^ charascii;
             sectMat[tempGridPos.rem-1][tempGridPos.quot-1] = (unsigned char)xored;
         }
-        
+        rotatecol(sectMat, 1, InputNums[2]*InputNums[0]);
+        rotatecol(sectMat, 3, InputNums[(int)RandKey[16]%2]);
+        rotaterow(sectMat, 1, InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42);
+        rotaterow(sectMat, 3, RandKey[InputNums[1]%15]);
     }
 }
 
