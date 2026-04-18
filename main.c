@@ -14,6 +14,7 @@
 int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
+chat outputFSname[512];
 char RandKey[16];
 size_t fileSize;
 
@@ -25,6 +26,7 @@ void arrayifyPi() {
 }
 unsigned char *ReadFileAndKeyStuff(char fring[]) {
     int desc = open(inputFSname, O_RDONLY);
+    int ndesc = open("newfile.bin", O_RDWR | O_CREAT | O_TRUNC, 0666);
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
@@ -66,6 +68,7 @@ void arrayifyArgs(int argc, char *argv[]) {
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
   inputFSname[sizeof(inputFSname)-1] = '\0';
+  strncpy(outputFSnane, argv[5], sizeof(outputFSname)-1);
 }
 void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
@@ -108,6 +111,10 @@ void EnCrYpT(unsigned char *buf) {
         rotatecol(sectMat, 3, InputNums[(int)RandKey[16]%2]);
         rotaterow(sectMat, 1, InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42);
         rotaterow(sectMat, 3, RandKey[InputNums[1]%15]);
+        rotatecol(sectMat, 0, InputNums[2]*InputNums[0]);
+        rotatecol(sectMat, 2, InputNums[(int)RandKey[16]%2]);
+        rotaterow(sectMat, 0, InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42);
+        rotaterow(sectMat, 2, RandKey[InputNums[1]%15]);
     }
 }
 
