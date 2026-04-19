@@ -24,18 +24,25 @@ void arrayifyPi() {
         StrungPi[i] = piTemp[i] - '0';
     }
 }
-unsigned char *createOutpurFile() {
+unsigned char *createOutputFile() {
     int desc = open(inputFSname, O_RDONLY);
     int ndesc = open(outputFSname, O_RDWR | O_CREAT | O_TRUNC, 0644);
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
         FILE *outputFile = fopen(outputFSname, "rw");
+        fseek(outputFile, 0, SEEK_END);
+        long fize = ftell(outputFile);
+        rewind(outputFile);
+        unsigned char *fuf = malloc(fize+1);
+        fread(fuf, 1, fize, outputFile);
+        fclose(outputFile);
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, ndesc, 0);
     close(desc);
     close(ndesc);
+    return fuf;
 }
 unsigned char *ReadFileAndKeyStuff(char fring[]) {
     int desc = open(inputFSname, O_RDONLY);
@@ -43,7 +50,6 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
         FILE *EncryptionVictim = fopen(fring, "rw");
-        FILE *outputFile = fopen(outputFSname, "rw");
         fseek(EncryptionVictim, 0, SEEK_END);
         long fize = ftell(EncryptionVictim);
         fileSize = fize;
@@ -107,7 +113,7 @@ void rotatecol(unsigned char matrix[4][4], int col, int n) {
     for (int i = 0; i < 4; i++)
         matrix[(i - n + 4) % 4][col] = temp[i];
 }
-void EnCrYpT(unsigned char *buf) {
+void EnCrYpT(unsigned char *buf, unsigned char *out) {
     unsigned char sectMat[4][4];
     div_t chunk16remainder = div(fileSize, 16);
     for (int i = 0; i < chunk16remainder.quot; i++) {
@@ -149,11 +155,12 @@ int main(int argc, char *argv[]) {
     printf("Input ints: %d, %d, %d\n\n", InputNums[0], InputNums[1], InputNums[2]);
     printf("reading file...\n");
     unsigned char *fileData = ReadFileAndKeyStuff(inputFSname);
+    unsigned char *outPtr = createOutputFile();
     printf("Your're key is ");
     printKey(RandKey);
     printf("Make sure to save it and your three input integers!\n\n");
     printf("Beginning encryption...\n");
-    EnCrYpT(fileData);
+    EnCrYpT(fileData, outPtr);
     munmap(fileData, fileSize);
     return 0;
 }
