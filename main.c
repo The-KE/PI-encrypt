@@ -26,7 +26,7 @@ void arrayifyPi() {
 }
 unsigned char *ReadFileAndKeyStuff(char fring[]) {
     int desc = open(inputFSname, O_RDONLY);
-    int ndesc = open("newfile.bin", O_RDWR | O_CREAT | O_TRUNC, 0666);
+    int ndesc = open("newfile.bin", O_RDWR | O_CREAT | O_TRUNC, 0644);
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
