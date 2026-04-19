@@ -14,7 +14,7 @@
 int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
-chat outputFSname[512];
+char outputFSname[512];
 char RandKey[16];
 size_t fileSize;
 
@@ -24,13 +24,26 @@ void arrayifyPi() {
         StrungPi[i] = piTemp[i] - '0';
     }
 }
-unsigned char *ReadFileAndKeyStuff(char fring[]) {
+unsigned char *createOutpurFile() {
     int desc = open(inputFSname, O_RDONLY);
-    int ndesc = open("newfile.bin", O_RDWR | O_CREAT | O_TRUNC, 0644);
+    int ndesc = open(outputFSname, O_RDWR | O_CREAT | O_TRUNC, 0644);
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
-        FILE *EncryptionVictim = fopen(fring, "rb");
+        FILE *outputFile = fopen(outputFSname, "rw");
+        return fuf;
+    }
+    unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, ndesc, 0);
+    close(desc);
+    close(ndesc);
+}
+unsigned char *ReadFileAndKeyStuff(char fring[]) {
+    int desc = open(inputFSname, O_RDONLY);
+    struct stat bytes;
+    fstat(desc, &bytes);
+    if (bytes.st_size < 32000000) {
+        FILE *EncryptionVictim = fopen(fring, "rw");
+        FILE *outputFile = fopen(outputFSname, "rw");
         fseek(EncryptionVictim, 0, SEEK_END);
         long fize = ftell(EncryptionVictim);
         fileSize = fize;
@@ -76,7 +89,7 @@ void printKey(const char *str) {
     }
     printf("\n");
 }
-void rotaterow(char matrix[4][4], int row, int n) {
+void rotaterow(unsigned char matrix[4][4], int row, int n) {
     n = n % 4;
     if (n == 0) return;
     char temp[4];
@@ -85,7 +98,7 @@ void rotaterow(char matrix[4][4], int row, int n) {
         matrix[row][(j + n) % 4] = temp[j];
 }
 
-void rotatecol(char matrix[4][4], int col, int n) {
+void rotatecol(unsigned char matrix[4][4], int col, int n) {
     n = n % 4;
     if (n == 0) return;
 
