@@ -29,7 +29,7 @@ unsigned char *createOutputFile() {
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
-        FILE *outputFile = fopen(outputFSname, "rw");
+        FILE *outputFile = fopen(outputFSname, "r+");
         fseek(outputFile, 0, SEEK_END);
         long fize = ftell(outputFile);
         rewind(outputFile);
@@ -39,6 +39,12 @@ unsigned char *createOutputFile() {
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, ndesc, 0);
+    if (fuf == MAP_FAILED) {
+        printf("Memory Map failed. Either my mediocre coding or an invalid file :/\n");
+        munmap(fuf, bytes.st_size);
+        close(desc);
+        exit(0);
+    }
     close(desc);
     close(ndesc);
     return fuf;
@@ -48,7 +54,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
-        FILE *EncryptionVictim = fopen(fring, "rw");
+        FILE *EncryptionVictim = fopen(fring, "r+");
         fseek(EncryptionVictim, 0, SEEK_END);
         long fize = ftell(EncryptionVictim);
         fileSize = fize;
@@ -118,7 +124,7 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
     for (int i = 0; i < chunk16remainder.quot; i++) {
         memset(sectMat, 0, sizeof(sectMat));
         for (int j = 1; j < 17; j++) {
-            div_t tempGridPos = div(4, j);
+            div_t tempGridPos = div(j, 4);
             int charascii = buf[(i*16)+j-1];
             int randAscii = RandKey[j-1];
             int piDigit = StrungPi[randAscii+(i*j)%15];
@@ -126,16 +132,16 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
             sectMat[tempGridPos.rem-1][tempGridPos.quot-1] = (unsigned char)xored;
         }
         rotatecol(sectMat, 1, InputNums[2]*InputNums[0]);
-        rotatecol(sectMat, 3, InputNums[(int)RandKey[16]%2]);
+        rotatecol(sectMat, 3, InputNums[(int)RandKey[15]%2]);
         rotaterow(sectMat, 1, InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42);
         rotaterow(sectMat, 3, RandKey[InputNums[1]%15]);
         rotatecol(sectMat, 0, InputNums[2]*InputNums[0]);
-        rotatecol(sectMat, 2, InputNums[(int)RandKey[16]%2]);
+        rotatecol(sectMat, 2, InputNums[(int)RandKey[15]%2]);
         rotaterow(sectMat, 0, InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42);
         rotaterow(sectMat, 2, RandKey[InputNums[1]%15]);
         for (int k = 0; k < 4; k++) {
             for (int l = 0; l < 4; l++) {
-                out[(i*16)+(k*l)] = sectMat[k*l];
+                out[(i*16)+(k*4+l)] = sectMat[k][l];
             }
         }
     }
