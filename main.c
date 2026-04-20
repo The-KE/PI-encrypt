@@ -26,6 +26,14 @@ void arrayifyPi() {
 unsigned char *createOutputFile() {
     int desc = open(inputFSname, O_RDONLY);
     int ndesc = open(outputFSname, O_RDWR | O_CREAT | O_TRUNC, 0644);
+    if (ndesc == -1) {
+        printf("Failed to create output file.");
+        exit(0);
+    }
+    if (desc == -1) {
+        printf("Failed to read input file.");
+        exit(0);
+    }
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
@@ -45,6 +53,10 @@ unsigned char *createOutputFile() {
 }
 unsigned char *ReadFileAndKeyStuff(char fring[]) {
     int desc = open(inputFSname, O_RDONLY);
+    if (desc == -1) {
+        printf("Failed to read input file.");
+        exit(0);
+    }
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
