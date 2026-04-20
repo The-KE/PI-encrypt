@@ -133,6 +133,11 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
         rotatecol(sectMat, 2, InputNums[(int)RandKey[16]%2]);
         rotaterow(sectMat, 0, InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42);
         rotaterow(sectMat, 2, RandKey[InputNums[1]%15]);
+        for (int k = 0; k < 4; k++) {
+            for (int l = 0; l < 4; l++) {
+                out[(i*16)+(k*l)] = sectMat[k*l];
+            }
+        }
     }
 }
 
