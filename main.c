@@ -38,7 +38,7 @@ unsigned char *createOutputFile() {
         fclose(outputFile);
         return fuf;
     }
-    unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, ndesc, 0);
+    unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, ndesc, 0);
     close(desc);
     close(ndesc);
     return fuf;
@@ -161,5 +161,6 @@ int main(int argc, char *argv[]) {
     printf("Beginning encryption...\n");
     EnCrYpT(fileData, outPtr);
     munmap(fileData, fileSize);
+    munmap(outPtr, fileSize);
     return 0;
 }
