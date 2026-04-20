@@ -86,7 +86,7 @@ void arrayifyArgs(int argc, char *argv[]) {
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
   inputFSname[sizeof(inputFSname)-1] = '\0';
-  strncpy(outputFSnane, argv[5], sizeof(outputFSname)-1);
+  strncpy(outputFSname, argv[5], sizeof(outputFSname)-1);
 }
 void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
