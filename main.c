@@ -6,7 +6,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <b64/cencode.h>
 
 #define PI_STR "3141592653589793"
 #define PI_LENGTH 16
