@@ -140,7 +140,7 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
         }
     }
     if (fileSize < 32000000) {
-        FILE outFile = fopen(outputFSname, "r+");
+        FILE *outFile = fopen(outputFSname, "r+");
         fwrite(out, 1, fileSize, outFile);
         fclose(outFile);
     }
