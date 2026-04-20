@@ -29,15 +29,9 @@ unsigned char *createOutputFile() {
     struct stat bytes;
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
-        FILE *outputFile = fopen(outputFSname, "r+");
-        fseek(outputFile, 0, SEEK_END);
-        long fize = ftell(outputFile);
-        rewind(outputFile);
-        unsigned char *fuf = malloc(fize+1);
-        fread(fuf, 1, fize, outputFile);
-        fclose(outputFile);
-        return fuf;
+        return malloc(bytes.st_size + 1);
     }
+    ftruncate(ndesc, bytes.st_size + 1);
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, ndesc, 0);
     if (fuf == MAP_FAILED) {
         printf("Memory Map failed. Either my mediocre coding or an invalid file :/\n");
