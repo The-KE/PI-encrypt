@@ -74,6 +74,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
         unsigned char *fuf = malloc(fize+1);
         fread(fuf, 1, fize, EncryptionVictim);
         fclose(EncryptionVictim);
+        close(desc);
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
@@ -93,7 +94,7 @@ void arrayifyArgs(int argc, char *argv[]) {
     InputNums[i] = atoi(argv[i+1]);
     if (InputNums[i] == 0) {
         printf("Invalid Ints: either used zero or inputted non integer for int fields. Int %d was invalid.\n", i+1);
-        exit(0);
+        exit(0)
     }
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
