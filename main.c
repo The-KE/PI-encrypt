@@ -42,7 +42,7 @@ unsigned char *createOutputFile() {
     ftruncate(ndesc, bytes.st_size + 1);
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, ndesc, 0);
     if (fuf == MAP_FAILED) {
-        printf("Memory Map failed. Either my mediocre coding or an invalid file :/\n");
+        printf("Memory Map of output file failed. Either my mediocre coding or an invalid file :/\n");
         munmap(fuf, bytes.st_size);
         close(desc);
         exit(0);
@@ -61,6 +61,11 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     fstat(desc, &bytes);
     if (bytes.st_size < 32000000) {
         FILE *EncryptionVictim = fopen(fring, "r+");
+        if (EncryptionVictim == NULL) {
+            printf("Unable to open input file (<32MB: used fopen)\n");
+            fclose(EncryptionVictim);
+            exit(0);
+        }
         fseek(EncryptionVictim, 0, SEEK_END);
         long fize = ftell(EncryptionVictim);
         fileSize = fize;
@@ -75,7 +80,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
     if (fuf == MAP_FAILED) {
-        printf("Memory Map failed. Either my mediocre coding or an invalid file :/\n");
+        printf("Memory Map of input file failed. Either my mediocre coding or an invalid file (>32MB: used mmap)\n");
         munmap(fuf, bytes.st_size);
         close(desc);
         exit(0);
@@ -118,7 +123,6 @@ void rotaterow(unsigned char matrix[4][4], int row, int n) {
 void rotatecol(unsigned char matrix[4][4], int col, int n) {
     n = n % 4;
     if (n == 0) return;
-
     char temp[4];
     for (int i = 0; i < 4; i++) temp[i] = matrix[i][col];
     for (int i = 0; i < 4; i++)
@@ -153,6 +157,9 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
     }
     if (fileSize < 32000000) {
         FILE *outFile = fopen(outputFSname, "r+");
+        if (outFile == NULL) {
+            printf("Unable to open output file for final writing (<32MB: used fopen)\n");
+        }
         fwrite(out, 1, fileSize, outFile);
         fclose(outFile);
     }
