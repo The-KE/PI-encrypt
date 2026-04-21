@@ -94,7 +94,7 @@ void arrayifyArgs(int argc, char *argv[]) {
     InputNums[i] = atoi(argv[i+1]);
     if (InputNums[i] == 0) {
         printf("Invalid Ints: either used zero or inputted non integer for int fields. Int %d was invalid.\n", i+1);
-        exit(0)
+        exit(0);
     }
   }
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
