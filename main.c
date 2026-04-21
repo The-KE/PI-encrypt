@@ -189,6 +189,7 @@ int main(int argc, char *argv[]) {
     printf("Make sure to save it and your three input integers!\n\n");
     printf("Beginning encryption...\n");
     EnCrYpT(fileData, outPtr);
+    printf("finished!\n");
     munmap(fileData, fileSize);
     munmap(outPtr, fileSize);
     return 0;
