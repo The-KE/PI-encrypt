@@ -114,7 +114,7 @@ void rotaterow(unsigned char matrix[4][4], int row, int n) {
     if (n == 0) return;
     char temp[4];
     memcpy(temp, matrix[row], 4);
-    for (int j = 3; j > -1; j--)
+    for (int j = 0; j < 4; j++)
         matrix[row][(j + n) % 4] = temp[j];
 }
 
@@ -122,8 +122,8 @@ void rotatecol(unsigned char matrix[4][4], int col, int n) {
     n = n % 4;
     if (n == 0) return;
     char temp[4];
-    for (int i = 0; i < 4; i--) temp[i] = matrix[i][col];
-    for (int i = 0; i < 4; i--)
+    for (int i = 0; i < 4; i++) temp[i] = matrix[i][col];
+    for (int i = 0; i < 4; i++)
         matrix[(i - n + 4) % 4][col] = temp[i];
 }
 void EnCrYpT(unsigned char *buf, unsigned char *out) {
