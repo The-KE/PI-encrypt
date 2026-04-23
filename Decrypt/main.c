@@ -101,8 +101,7 @@ void arrayifyArgs(int argc, char *argv[]) {
   inputFSname[sizeof(inputFSname)-1] = '\0';
   strncpy(outputFSname, argv[5], sizeof(outputFSname)-1);
   outputFSname[sizeof(outputFSname)-1] = '\0';
-  strncpy(hexKey, argv[6], sizeof(hexKey)-2);
-  hexKey[sizeof(hexKey)-1] = '\0';
+  strncpy(hexKey, argv[6], sizeof(hexKey)-1);
 }
 void deHexKey(const char *hex) {
     int idx = 0;
@@ -181,7 +180,7 @@ int main(int argc, char *argv[]) {
     printf("Doing unimportant stuff you prob dont care about...\n");
     arrayifyPi();
     printf("converting key from hex...\n");
-    deHexKey();
+    deHexKey(hexKey);
     printf("Just a reminder that it is impossible to use 0 as in input integer.\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
     arrayifyArgs(argc, argv);
