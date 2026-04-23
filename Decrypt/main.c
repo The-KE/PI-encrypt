@@ -15,7 +15,7 @@ int InputNums[3];
 char inputFSname[512];
 char outputFSname[512];
 char RandKey[16];
-char hexKey[33];
+char hexKey[32];
 size_t fileSize;
 
 void arrayifyPi() {
@@ -104,10 +104,15 @@ void arrayifyArgs(int argc, char *argv[]) {
   strncpy(hexKey, argv[6], sizeof(hexKey)-2);
   hexKey[sizeof(hexKey)-1] = '\0';
 }
-void deHexKey(const char *str) {
-    for (int i = 0; str[i] != '\0'; i++) {
-        sscanf("%02x", &str[i]);
-    }
+void deHexKey(const char *hex) {
+    int idx = 0;
+    for (int i = 0; i < 32; i += 2) {
+        unsigned int byte;
+        char pair[3] = {hex[i], hex[i+1], '\0'};
+        sscanf(pair, "%x", &byte);
+        RandKey[idx++] = (char)byte;
+        printf(RandKey);
+    }    
 }
 void rotaterow(unsigned char matrix[4][4], int row, int n) {
     n = n % 4;
@@ -175,6 +180,8 @@ int main(int argc, char *argv[]) {
     }
     printf("Doing unimportant stuff you prob dont care about...\n");
     arrayifyPi();
+    printf("converting key from hex...\n");
+    deHexKey();
     printf("Just a reminder that it is impossible to use 0 as in input integer.\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
     arrayifyArgs(argc, argv);
