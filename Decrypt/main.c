@@ -106,7 +106,7 @@ void arrayifyArgs(int argc, char *argv[]) {
 }
 void deHexKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
-        sscanf("%02x", (unsigned char)str[i]);
+        sscanf("%02x", &str[i]);
     }
 }
 void rotaterow(unsigned char matrix[4][4], int row, int n) {
