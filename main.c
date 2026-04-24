@@ -78,6 +78,9 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
         FILE *urand = fopen("/dev/urandom", "r");
         fread(&RandKey, 1, sizeof(RandKey), urand);
         fclose(urand);
+        if (ktofile == true) {
+            FILE *kout = fopen("piEncKey.txt", "r+");
+        }
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
@@ -106,9 +109,8 @@ void arrayifyArgs(int argc, char *argv[]) {
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-1);
   inputFSname[sizeof(inputFSname)-1] = '\0';
   strncpy(outputFSname, argv[5], sizeof(outputFSname)-1);
-  if (argc >= 6 && strcmp(argv[6], "-k") {
+  if (argc >= 6 && strcmp(argv[6], "-k"))
       ktofile = true;
-  }
 }
 void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
