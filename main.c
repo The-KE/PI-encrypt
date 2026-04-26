@@ -112,7 +112,7 @@ void arrayifyArgs(int argc, char *argv[]) {
       ktofile = true;
 }
 void printKey(const char *str) {
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 16; i++) {
         unsigned char hex[3]; 
         sprintf(hex, "%02x", str[i]);
         printf("%02x", (unsigned char)str[i]);
