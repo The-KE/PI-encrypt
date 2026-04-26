@@ -109,7 +109,7 @@ void arrayifyArgs(int argc, char *argv[]) {
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-2);
   inputFSname[sizeof(inputFSname)-1] = '\0';
   strncpy(outputFSname, argv[5], sizeof(outputFSname)-2);
-  printf("%s", outputFSnane
+  printf("%s", outputFSname);
   outputFSname[sizeof(inputFSname)-1] = '\0';
   if (argc >= 7 && !strcmp(argv[6], "-k"))
       ktofile = true;
