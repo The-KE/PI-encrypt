@@ -143,7 +143,7 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
     div_t chunk16remainder = div(fileSize, 16);
     for (int i = 0; i < chunk16remainder.quot; i++) {
         memset(sectMat, 0, sizeof(sectMat));
-        for (int j = 1; j < 17; j++) {
+        for (int j = 0; j < 16; j++) {
             int row = j / 4;
             int col = j % 4;
             int charascii = buf[(i*16)+j];
