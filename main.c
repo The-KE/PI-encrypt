@@ -113,7 +113,7 @@ void arrayifyArgs(int argc, char *argv[]) {
 }
 void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
-        unsigned char hex[2]; 
+        unsigned char hex[3]; 
         sprintf(hex, "%02x", str[i]);
         printf("%02x", (unsigned char)str[i]);
         hexKey[i*2] = hex[0];
