@@ -111,8 +111,8 @@ void arrayifyArgs(int argc, char *argv[]) {
   inputFSname[sizeof(inputFSname)-1] = '\0';
   strncpy(outputFSname, argv[5], sizeof(outputFSname)-2);
   outputFSname[sizeof(inputFSname)-1] = '\0';
-  if (argc >= 6 && !strcmp(argv[6], "-k"))
-      ktofile = true;
+  //if (argc >= 6 && !strcmp(argv[6], "-k"))
+   //   ktofile = true;
 }
   void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
