@@ -144,12 +144,13 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
     for (int i = 0; i < chunk16remainder.quot; i++) {
         memset(sectMat, 0, sizeof(sectMat));
         for (int j = 1; j < 17; j++) {
-            div_t tempGridPos = div(j, 4);
-            int charascii = buf[(i*16)+j-1];
-            int randAscii = RandKey[j-1];
+            int row = j / 4;
+            int col = j % 4;
+            int charascii = buf[(i*16)+j];
+            int randAscii = RandKey[j];
             int piDigit = StrungPi[(randAscii+(i*j))%16];
             int xored = piDigit ^ charascii;
-            sectMat[tempGridPos.rem-1][tempGridPos.quot-1] = (unsigned char)xored;
+            sectMat[row][col] = (unsigned char)xored;
         }
         rotatecol(sectMat, 1, InputNums[2]*InputNums[0]);
         rotatecol(sectMat, 3, InputNums[(int)RandKey[15]%3]);
