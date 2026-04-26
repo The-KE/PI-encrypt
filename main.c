@@ -111,7 +111,7 @@ void arrayifyArgs(int argc, char *argv[]) {
   if (argc >= 7 && !strcmp(argv[6], "-k"))
       ktofile = true;
 }
-void printKey(const char *str) {
+void printKey(const unsigned char *str) {
     for (int i = 0; i < 16; i++) {
         unsigned char hex[3]; 
         sprintf(hex, "%02x", str[i]);
