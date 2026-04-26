@@ -15,7 +15,7 @@ int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[513];
 char outputFSname[513];
-char RandKey[16];
+unsigned char RandKey[16];
 char hexKey[32];
 bool ktofile = false;
 size_t fileSize;
