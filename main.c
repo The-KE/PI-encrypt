@@ -16,6 +16,7 @@ int InputNums[3];
 char inputFSname[513];
 char outputFSname[513];
 char RandKey[16];
+char hexKey[32];
 bool ktofile = false;
 size_t fileSize;
 
@@ -78,9 +79,6 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
         FILE *urand = fopen("/dev/urandom", "r");
         fread(&RandKey, 1, sizeof(RandKey), urand);
         fclose(urand);
-        if (ktofile == true) {
-            FILE *kout = fopen("piEncKey.txt", "r+");
-        }
         return fuf;
     }
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ, MAP_PRIVATE, desc, 0);
@@ -109,14 +107,17 @@ void arrayifyArgs(int argc, char *argv[]) {
   strncpy(inputFSname, argv[4], sizeof(inputFSname)-2);
   inputFSname[sizeof(inputFSname)-1] = '\0';
   strncpy(outputFSname, argv[5], sizeof(outputFSname)-2);
-  printf("%s", outputFSname);
   outputFSname[sizeof(inputFSname)-1] = '\0';
   if (argc >= 7 && !strcmp(argv[6], "-k"))
       ktofile = true;
 }
-  void printKey(const char *str) {
+void printKey(const char *str) {
     for (int i = 0; str[i] != '\0'; i++) {
+        unsigned char hex[2]; 
+        sprintf(hex, "%02x", str[i]);
         printf("%02x", (unsigned char)str[i]);
+        hexKey[i*2] = hex[0];
+        hexKey[i*2+1] = hex[1];
     }
     printf("\n");
 }
@@ -195,6 +196,15 @@ int main(int argc, char *argv[]) {
     unsigned char *outPtr = createOutputFile();
     printf("Your're key is ");
     printKey(RandKey);
+    if (ktofile == true) {
+         FILE *kout = fopen("piEncKey.txt", "w");
+         if (kout == NULL) {
+             printf("Failed to open file for key writing.");
+             exit(0);
+         }
+         fwrite(&hexKey, 32, 1, kout);
+         fclose(kout);
+    }
     printf("Make sure to save it and your three input integers!\n\n");
     printf("Beginning encryption...\n");
     EnCrYpT(fileData, outPtr);
