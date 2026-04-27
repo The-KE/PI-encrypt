@@ -13,6 +13,8 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y gcc-multilib
     - name: build
       run: gcc -m32 main.c -o piEncrypt
+    - name: build decrypt
+      run: gcc -m32 Decrypt/main.c -o piDecrypt
     - name: test executuable
       run: ./piEncrypt 48 5348 946824 PartialHamlet.txt H4M13T.txt -k
     - name: test decrypt
@@ -21,8 +23,6 @@ jobs:
       run: diff -u PartialHamlet.txt decryptedHamlet.txt
     - name: test executuable 2
       run: ./piEncrypt 8379 946824 164302 Random64.txt 54ND0M64.txt -k
-    - name: build decrypt
-      run: gcc -m32 Decrypt/main.c -o piDecrypt
     - uses: actions/upload-artifact@v4
       with:
           name: piEncrypt
