@@ -14,11 +14,15 @@ jobs:
     - name: build
       run: gcc -m32 main.c -o piEncrypt
     - name: test executuable
-      run: ./piEncrypt 48 5348 946824 PartialHamlet.txt H4M13T.txt
+      run: ./piEncrypt 48 5348 946824 PartialHamlet.txt H4M13T.txt -k
     - name: test executuable 2
-      run: ./piEncrypt 8379 946824 164302 Random64.txt 54ND0M64.txt
+      run: ./piEncrypt 8379 946824 164302 Random64.txt 54ND0M64.txt -k
     - name: build decrypt
       run: gcc -m32 Decrypt/main.c -o piDecrypt
+    - name: test decrypt
+      run: ./piDecrypt 48 5348 946824 H4M13T.txt decryptedHamlet.txt -k
+    - name: check decrypt
+      run: diff -u PartialHamlet.txt decryptedHamlet
     - uses: actions/upload-artifact@v4
       with:
           name: piEncrypt
