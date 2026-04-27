@@ -22,7 +22,7 @@ jobs:
     - name: test decrypt
       run: ./piDecrypt 48 5348 946824 H4M13T.txt decryptedHamlet.txt -k
     - name: check decrypt
-      run: diff -u PartialHamlet.txt decryptedHamlet
+      run: diff -u PartialHamlet.txt decryptedHamlet.txt
     - uses: actions/upload-artifact@v4
       with:
           name: piEncrypt
