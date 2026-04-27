@@ -166,7 +166,8 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
             }
         }
     }
-    for (int
+    for (int i = 0; i < chunk16remainder.rem; i++)
+        out[(chunk16remainder.quot*16) + i] = buf[(chunk16remainder.quot*16) + i];
     if (fileSize < 32000000) {
         FILE *outFile = fopen(outputFSname, "r+");
         if (outFile == NULL) {
