@@ -184,7 +184,7 @@ int main(int argc, char *argv[]) {
     printf("By UnknownKE/The KE\n");
     printf("Made for Instructables spring 2026 All Things Pi contest\n\n");
     if (argc == 1) {
-      printf("Usage: int int int fileToDecrypt outputFileName key\n");
+      printf("Usage: int int int fileToDecrypt outputFileName -k key\n");
       printf("make sure the 3 ints are far apart, abide by the 32 bit int limit, and are hard to guess as they are used for encryption.\n");
       return 0;
     }
