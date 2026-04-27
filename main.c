@@ -166,6 +166,7 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
             }
         }
     }
+    for (int
     if (fileSize < 32000000) {
         FILE *outFile = fopen(outputFSname, "r+");
         if (outFile == NULL) {
