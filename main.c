@@ -42,7 +42,7 @@ unsigned char *createOutputFile() {
     if (bytes.st_size < 32000000) {
         return malloc(bytes.st_size + 1);
     }
-    ftruncate(ndesc, bytes.st_size + 1);
+    ftruncate(ndesc, bytes.st_size);
     unsigned char *fuf = mmap(NULL, bytes.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, ndesc, 0);
     if (fuf == MAP_FAILED) {
         printf("Memory Map of output file failed. Either my mediocre coding or an invalid file :/\n");
