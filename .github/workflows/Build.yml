@@ -23,6 +23,10 @@ jobs:
       run: diff -u PartialHamlet.txt decryptedHamlet.txt
     - name: test executuable 2
       run: ./piEncrypt 8379 946824 164302 Random64.txt 54ND0M64.txt -k
+    - name: test decrypt 2
+      run: ./piDecrypt 8379 946824 164302 54ND0M64.txt dec64.txt -k
+    - name: check decrypt
+      run: diff -u Random64.txt dec64.txt
     - uses: actions/upload-artifact@v4
       with:
           name: piEncrypt
