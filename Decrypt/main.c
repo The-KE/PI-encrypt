@@ -114,7 +114,6 @@ void deHexKey(const char *hex) {
         char pair[3] = {hex[i], hex[i+1], '\0'};
         sscanf(pair, "%x", &byte);
         RandKey[idx++] = (char)byte;
-        printf(RandKey);
     }    
 }
 void rotaterow(unsigned char matrix[4][4], int row, int n) {
@@ -192,6 +191,15 @@ int main(int argc, char *argv[]) {
     printf("Doing unimportant stuff you prob dont care about...\n");
     arrayifyPi();
     printf("converting key from hex...\n");
+    if (ktofile == true) {
+         FILE *kout = fopen("piEncKey.txt", "r");
+         if (kout == NULL) {
+             printf("Failed to open file for key reading.");
+             exit(0);
+         }
+         fread(&hexKey, 1, 32, kout);
+         fclose(kout);
+    }
     deHexKey(hexKey);
     printf("Just a reminder that it is impossible to use 0 as in input integer.\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
