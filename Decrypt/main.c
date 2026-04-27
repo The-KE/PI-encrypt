@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #define PI_STR "3141592653589793"
 #define PI_LENGTH 16
@@ -16,6 +17,7 @@ char inputFSname[512];
 char outputFSname[512];
 char RandKey[16];
 char hexKey[32];
+bool ktofile = false;
 size_t fileSize;
 
 void arrayifyPi() {
@@ -90,7 +92,7 @@ unsigned char *ReadFileAndKeyStuff(char fring[]) {
     return fuf;
 }
 void arrayifyArgs(int argc, char *argv[]) {
-  for (int i = 0; i < argc-3; i++) {
+  for (int i = 0; i < 3; i++) {
     InputNums[i] = atoi(argv[i+1]);
     if (InputNums[i] == 0) {
         printf("Invalid Ints: either used zero or inputted non integer for int fields. Int %d was invalid.\n", i+1);
@@ -102,6 +104,8 @@ void arrayifyArgs(int argc, char *argv[]) {
   strncpy(outputFSname, argv[5], sizeof(outputFSname)-1);
   outputFSname[sizeof(outputFSname)-1] = '\0';
   strncpy(hexKey, argv[6], sizeof(hexKey)-1);
+  if (argc >= 7 && !strcmp(argv[6], "-k"))
+      ktofile = true;
 }
 void deHexKey(const char *hex) {
     int idx = 0;
