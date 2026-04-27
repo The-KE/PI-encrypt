@@ -15,7 +15,7 @@ int StrungPi[PI_LENGTH];
 int InputNums[3];
 char inputFSname[512];
 char outputFSname[512];
-char RandKey[16];
+unsigned char RandKey[16];
 char hexKey[32];
 bool ktofile = false;
 size_t fileSize;
@@ -139,8 +139,8 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
     for (int i = 0; i < chunk16remainder.quot; i++) {
         memset(sectMat, 0, sizeof(sectMat));
         for (int j = 0; j < 16; j++) {
-            int cols = j/4;
-            int rows = j%4;
+            int rows = j/4;
+            int cols = j%4;
             sectMat[rows][cols] = (unsigned char)buf[i*16+j];
         }
         rotaterow(sectMat, 2, 4-((RandKey[InputNums[1]%16])%4));
@@ -156,7 +156,7 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
             int cols = j%4;
             int charascii = sectMat[rows][cols];
             int randAscii = RandKey[j];
-            int piDigit = StrungPi[randAscii+(i*j)%16];
+            int piDigit = StrungPi[(randAscii+(i*j))%16];
             int xored = piDigit ^ charascii;
             sectMat[rows][cols] = (unsigned char)xored;
         }
