@@ -152,11 +152,11 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
         rotatecol(sectMat, 3, 4-((InputNums[(int)RandKey[15]%3])%4));
         rotatecol(sectMat, 1, 4-((InputNums[2]*InputNums[0])%4));
         for (int j = 0; j < 16; j++) {
-            int cols = j/4;
-            int rows = j%4;
-            int charascii = buf[(i*16)+j-1];
-            int randAscii = RandKey[j-1];
-            int piDigit = StrungPi[randAscii+(i*j)%15];
+            int rows = j/4;
+            int cols = j%4;
+            int charascii = sectMat[rows][cols];
+            int randAscii = RandKey[j];
+            int piDigit = StrungPi[randAscii+(i*j)%16];
             int xored = piDigit ^ charascii;
             sectMat[rows][cols] = (unsigned char)xored;
         }
@@ -190,6 +190,7 @@ int main(int argc, char *argv[]) {
     }
     printf("Doing unimportant stuff you prob dont care about...\n");
     arrayifyPi();
+    arrayifyArgs(argc, argv);
     printf("converting key from hex...\n");
     if (ktofile == true) {
          FILE *kout = fopen("piEncKey.txt", "r");
@@ -203,7 +204,6 @@ int main(int argc, char *argv[]) {
     deHexKey(hexKey);
     printf("Just a reminder that it is impossible to use 0 as in input integer.\n");
     printf("Putting a filename larger than 511 chars will cause a buffer overflow so just dont!\n");
-    arrayifyArgs(argc, argv);
     printf("Input ints: %d, %d, %d\n\n", InputNums[0], InputNums[1], InputNums[2]);
     printf("reading file...\n");
     unsigned char *fileData = ReadFileAndKeyStuff(inputFSname);
