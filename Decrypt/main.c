@@ -135,21 +135,27 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
     div_t chunk16remainder = div(fileSize, 16);
     for (int i = 0; i < chunk16remainder.quot; i++) {
         memset(sectMat, 0, sizeof(sectMat));
-        rotaterow(sectMat, 2, 4-((RandKey[InputNums[1]%15])%4));
-        rotaterow(sectMat, 0, 4-((InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42)%4));
-        rotatecol(sectMat, 2, 4-((InputNums[(int)RandKey[15]%2])%4));
+        for (int j = 0; j < 16; j++) {
+            int cols = j/4;
+            int rows = j%4;
+            sectMat[rows][cols] = (unsigned char)buf[i*16+j];
+        }
+        rotaterow(sectMat, 2, 4-((RandKey[InputNums[1]%16])%4));
+        rotaterow(sectMat, 0, 4-((InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%3]*42)%4));
+        rotatecol(sectMat, 2, 4-((InputNums[(int)RandKey[15]%3])%4));
         rotatecol(sectMat, 0, 4-((InputNums[2]*InputNums[0])%4));
-        rotaterow(sectMat, 3, 4-((RandKey[InputNums[1]%15])%4));
-        rotaterow(sectMat, 1, 4-((InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%2]*42)%4));
-        rotatecol(sectMat, 3, 4-((InputNums[(int)RandKey[15]%2])%4));
+        rotaterow(sectMat, 3, 4-((RandKey[InputNums[1]%16])%4));
+        rotaterow(sectMat, 1, 4-((InputNums[(((int)RandKey[8]*StrungPi[12]) ^ InputNums[2])%3]*42)%4));
+        rotatecol(sectMat, 3, 4-((InputNums[(int)RandKey[15]%3])%4));
         rotatecol(sectMat, 1, 4-((InputNums[2]*InputNums[0])%4));
-        for (int j = 1; j < 17; j++) {
-            div_t tempGridPos = div(j, 4);
+        for (int j = 0; j < 16; j++) {
+            int cols = j/4;
+            int rows = j%4;
             int charascii = buf[(i*16)+j-1];
             int randAscii = RandKey[j-1];
             int piDigit = StrungPi[randAscii+(i*j)%15];
             int xored = piDigit ^ charascii;
-            sectMat[tempGridPos.rem-1][tempGridPos.quot-1] = (unsigned char)xored;
+            sectMat[rows][cols] = (unsigned char)xored;
         }
         for (int k = 0; k < 4; k++) {
             for (int l = 0; l < 4; l++) {
@@ -157,6 +163,8 @@ void EnCrYpT(unsigned char *buf, unsigned char *out) {
             }
         }
     }
+    for (int i = 0; i < chunk16remainder.rem; i++)
+        out[(chunk16remainder.quot*16) + i] = buf[(chunk16remainder.quot*16) + i];
     if (fileSize < 32000000) {
         FILE *outFile = fopen(outputFSname, "r+");
         if (outFile == NULL) {
